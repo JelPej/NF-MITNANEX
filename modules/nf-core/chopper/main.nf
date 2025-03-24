@@ -32,7 +32,7 @@ process CHOPPER {
         $fastq | \\
     chopper \\
         --threads $task.cpus \\
-        $fasta_filtering \\
+        $fasta_filtering \\d
         $args2 | \\
     gzip \\
         $args3 > ${prefix}.fastq.gz
