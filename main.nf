@@ -54,8 +54,22 @@ workflow NFCORE_NFMITNANEXT {
 
     main:
 
-    ch_samplesheet = Channel.fromPath(params.input).view(i -> 'out main first $i')
-    ch_fasta = params.genome
+    // ch_samplesheet = Channel.fromPath(params.input).view(i -> 'out main first $i')
+
+
+    Channel
+    .fromPath(params.input)
+    .splitCsv(header: true)
+    .map { row ->
+        def meta = [
+            id: row.sample,
+            single_end: true
+        ]
+        def fastq = file(row.fastq_1)
+        return [meta, fastq]
+    }
+    .set { ch_samplesheet }    
+    ch_fasta = params.fasta
     //
     // WORKFLOW: Run pipeline
     //
@@ -76,7 +90,6 @@ workflow {
 
     main:
     //params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
-    ch_samplesheet = Channel.fromPath("/home/andresfl/NF-MITNANEX/testing_hack/samples.csv").view()
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
