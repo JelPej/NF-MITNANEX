@@ -11,6 +11,9 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
 include { CHOPPER } from '../modules/nf-core/chopper/main'
 include { MINIMAP2_ALIGN } from '../modules/nf-core/minimap2/align/main'
+include { GATK4_MUTECT2 } from '../modules/nf-core/gatk4/mutect2/main'
+include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/createsequencedictionary/main'
+
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
