@@ -21,15 +21,13 @@
                     "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/nfmitnanext/usage#samplesheet-input).",
-                    "fa_icon": "fas fa-file-csv",
-                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/samplesheet.csv"
+                    "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-                    "fa_icon": "fas fa-folder-open",
-                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/results_test"
+                    "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
                     "type": "string",
@@ -43,15 +41,13 @@
                     "format": "file-path",
                     "exists": true,
                     "description": "Chopper contamination fasta",
-                    "fa_icon": "fas fa-folder-open",
-                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/results_test"
+                    "fa_icon": "fas fa-folder-open"
                 },
                 "min_mapQ": {
-                    "type": "number",
+                    "type": "integer",
                     "minimum": 0,
                     "maximum": 255,   
-                    "description": "minimum map quality to filter for minimap2",
-                    "default": 10
+                    "description": "minimum map quality to filter for minimap2"
                 }
 
             }
