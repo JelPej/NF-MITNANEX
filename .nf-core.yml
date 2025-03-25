@@ -8,7 +8,7 @@ template:
   org: nf-core
   name: nfmitnanext
   description: mitochondrial nanopore reads extractor
-  author: juanjo55
+  author: juanjo255
   version: 1.0.0dev
   force: true
   outdir: .

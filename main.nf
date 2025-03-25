@@ -18,7 +18,7 @@
 include { NFMITNANEXT  } from './workflows/nfmitnanext'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
-include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
+//include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,10 +26,11 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+
 // TODO nf-core: Remove this line if you don't need a FASTA file
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
+//params.fasta = getGenomeAttribute('fasta')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,7 +44,8 @@ params.fasta = getGenomeAttribute('fasta')
 workflow NFCORE_NFMITNANEXT {
 
     take:
-    samplesheet // channel: samplesheet read in from --input
+        samplesheet // channel: samplesheet read in from --input
+        reference_genome // string: Path to reference genome 
 
     main:
 
@@ -51,10 +53,12 @@ workflow NFCORE_NFMITNANEXT {
     // WORKFLOW: Run pipeline
     //
     NFMITNANEXT (
-        samplesheet
+        samplesheet,
+        reference_genome 
     )
+
     emit:
-    multiqc_report = NFMITNANEXT.out.multiqc_report // channel: /path/to/multiqc_report.html
+    NFMITNANEXT.out // TODO: not set, but it must return something like assembly, or several data
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -63,7 +67,6 @@ workflow NFCORE_NFMITNANEXT {
 */
 
 workflow {
-
     main:
     //
     // SUBWORKFLOW: Run initialisation tasks
@@ -81,20 +84,21 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_NFMITNANEXT (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        params.reference_genome
     )
     //
     // SUBWORKFLOW: Run completion tasks
     //
-    PIPELINE_COMPLETION (
-        params.email,
-        params.email_on_fail,
-        params.plaintext_email,
-        params.outdir,
-        params.monochrome_logs,
-        params.hook_url,
-        NFCORE_NFMITNANEXT.out.multiqc_report
-    )
+    // PIPELINE_COMPLETION (
+    //     params.email,
+    //     params.email_on_fail,
+    //     params.plaintext_email,
+    //     params.outdir,
+    //     params.monochrome_logs,
+    //     params.hook_url,
+    //    // NFCORE_NFMITNANEXT.out.multiqc_report
+    // )
 }
 
 /*

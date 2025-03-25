@@ -22,14 +22,21 @@
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/nfmitnanext/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv",
-                    "default": "./data_test/samplesheet.csv"
+                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/samplesheet.csv"
+                },
+                "reference_genome": {
+                    "type": "string",
+                    "format": "file-path",
+                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta",
+                    "description": "Reference genome to map reads",
+                    "fa_icon": "fas fa-address-card"
                 },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open",
-                    "default": "./results_test"
+                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/results_test"
                 },
                 "email": {
                     "type": "string",

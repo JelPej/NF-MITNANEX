@@ -76,7 +76,7 @@ For more details about the output files and reports, please refer to the
 
 ## Credits
 
-nf-core/nfmitnanext was originally written by juanjo55.
+nf-core/nfmitnanext was originally written by juanjo255.
 
 We thank the following people for their extensive assistance in the development of this pipeline:
 
