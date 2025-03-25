@@ -8,3 +8,5 @@ testing*
 *.pyc
 null/
 testing_hack/SRR25455202_1.fastq.gz
+lint_log.txt
+lint_results.md
