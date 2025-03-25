@@ -59,6 +59,13 @@ workflow NFMITNANEXT {
         []
     )
 
+    GATK4_FILTERMUTECTCALLS(
+        tuple([ id:'test_ref', single_end:true], GATK4_FILTERMUTECTCALLS.out.vcf, GATK4_FILTERMUTECTCALLS.out.tbi, GATK4_FILTERMUTECTCALLS.out.stats),
+        tuple([ id:'test_ref', single_end:true], ch_fasta),
+        tuple([ id:'test_ref', single_end:true], ch_fai),
+        tuple([ id:'test_ref', single_end:true], PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict.map{it -> it[1]})
+    )
+
     ch_versions = Channel.empty()
 
     emit:
