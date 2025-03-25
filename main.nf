@@ -30,7 +30,16 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfmi
 // TODO nf-core: Remove this line if you don't need a FASTA file
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
+<<<<<<< HEAD
 //params.fasta = getGenomeAttribute('fasta')
+=======
+params.fasta = getGenomeAttribute('fasta')
+//params.samplesheet = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
+params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
+params.outdir = 'results'
+
+// Channel.fromPath(params.samplesheet).view(i -> 'out main param def $i')
+>>>>>>> master
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,21 +53,51 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfmi
 workflow NFCORE_NFMITNANEXT {
 
     take:
+<<<<<<< HEAD
         samplesheet // channel: samplesheet read in from --input
         reference_genome // string: Path to reference genome 
+=======
+    samplesheet // channel: samplesheet read in from --input
+    ch_fasta
+    
+>>>>>>> master
 
     main:
 
+    // ch_samplesheet = Channel.fromPath(params.input).view(i -> 'out main first $i')
+
+
+    Channel
+    .fromPath(params.input)
+    .splitCsv(header: true)
+    .map { row ->
+        def meta = [
+            id: row.sample,
+            single_end: true
+        ]
+        def fastq = file(row.fastq_1)
+        return [meta, fastq]
+    }
+    .set { ch_samplesheet }    
+    ch_fasta = params.fasta
     //
     // WORKFLOW: Run pipeline
     //
     NFMITNANEXT (
+<<<<<<< HEAD
         samplesheet,
         reference_genome 
     )
 
     emit:
     NFMITNANEXT.out // TODO: not set, but it must return something like assembly, or several data
+=======
+        ch_samplesheet,
+        ch_fasta
+    )
+//     emit:
+//     multiqc_report = NFMITNANEXT.out.multiqc_report // channel: /path/to/multiqc_report.html
+>>>>>>> master
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,6 +107,7 @@ workflow NFCORE_NFMITNANEXT {
 
 workflow {
     main:
+    //params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -85,7 +125,11 @@ workflow {
     //
     NFCORE_NFMITNANEXT (
         PIPELINE_INITIALISATION.out.samplesheet,
+<<<<<<< HEAD
         params.reference_genome
+=======
+        params.genome
+>>>>>>> master
     )
     //
     // SUBWORKFLOW: Run completion tasks
@@ -96,8 +140,13 @@ workflow {
     //     params.plaintext_email,
     //     params.outdir,
     //     params.monochrome_logs,
+<<<<<<< HEAD
     //     params.hook_url,
     //    // NFCORE_NFMITNANEXT.out.multiqc_report
+=======
+    //     params.hook_url
+    //     // NFCORE_NFMITNANEXT.out.multiqc_report
+>>>>>>> master
     // )
 }
 
