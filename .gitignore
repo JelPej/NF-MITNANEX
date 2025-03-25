@@ -7,6 +7,11 @@ testing/
 testing*
 *.pyc
 null/
+<<<<<<< HEAD
+data_test/
+results_test/
+=======
 testing_hack/SRR25455202_1.fastq.gz
 lint_log.txt
 lint_results.md
+>>>>>>> master

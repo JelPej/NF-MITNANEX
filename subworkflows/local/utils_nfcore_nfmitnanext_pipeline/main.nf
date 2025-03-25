@@ -66,7 +66,7 @@ workflow PIPELINE_INITIALISATION {
     //
     // Custom validation for pipeline parameters
     //
-    validateInputParameters()
+    //validateInputParameters()
 
     //
     // Create channel from input file provided through params.input
@@ -112,33 +112,33 @@ workflow PIPELINE_COMPLETION {
     outdir          //    path: Path to output directory where results will be published
     monochrome_logs // boolean: Disable ANSI colour codes in log output
     hook_url        //  string: hook URL for notifications
-    multiqc_report  //  string: Path to MultiQC report
+    //multiqc_report  //  string: Path to MultiQC report
 
     main:
     summary_params = paramsSummaryMap(workflow, parameters_schema: "nextflow_schema.json")
-    def multiqc_reports = multiqc_report.toList()
+    //def multiqc_reports = multiqc_report.toList()
 
     //
     // Completion email and summary
     //
-    workflow.onComplete {
-        if (email || email_on_fail) {
-            completionEmail(
-                summary_params,
-                email,
-                email_on_fail,
-                plaintext_email,
-                outdir,
-                monochrome_logs,
-                multiqc_reports.getVal(),
-            )
-        }
+    // workflow.onComplete {
+    //     if (email || email_on_fail) {
+    //         completionEmail(
+    //             summary_params,
+    //             email,
+    //             email_on_fail,
+    //             plaintext_email,
+    //             outdir,
+    //             monochrome_logs,
+    //             multiqc_reports.getVal(),
+    //         )
+    //     }
 
-        completionSummary(monochrome_logs)
-        if (hook_url) {
-            imNotification(summary_params, hook_url)
-        }
-    }
+    //     completionSummary(monochrome_logs)
+    //     if (hook_url) {
+    //         imNotification(summary_params, hook_url)
+    //     }
+    // }
 
     workflow.onError {
         log.error "Pipeline failed. Please refer to troubleshooting docs: https://nf-co.re/docs/usage/troubleshooting"
@@ -153,9 +153,9 @@ workflow PIPELINE_COMPLETION {
 //
 // Check and validate pipeline parameters
 //
-def validateInputParameters() {
-    genomeExistsError()
-}
+// def validateInputParameters() {
+//     genomeExistsError()
+// }
 
 //
 // Validate channels from input samplesheet
@@ -174,28 +174,28 @@ def validateInputSamplesheet(input) {
 //
 // Get attribute from genome config file e.g. fasta
 //
-def getGenomeAttribute(attribute) {
-    if (params.genomes && params.genome && params.genomes.containsKey(params.genome)) {
-        if (params.genomes[ params.genome ].containsKey(attribute)) {
-            return params.genomes[ params.genome ][ attribute ]
-        }
-    }
-    return null
-}
+// def getGenomeAttribute(attribute) {
+//     if (params.genomes && params.genome && params.genomes.containsKey(params.genome)) {
+//         if (params.genomes[ params.genome ].containsKey(attribute)) {
+//             return params.genomes[ params.genome ][ attribute ]
+//         }
+//     }
+//     return null
+// }
 
 //
 // Exit pipeline if incorrect --genome key provided
 //
-def genomeExistsError() {
-    if (params.genomes && params.genome && !params.genomes.containsKey(params.genome)) {
-        def error_string = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
-            "  Genome '${params.genome}' not found in any config files provided to the pipeline.\n" +
-            "  Currently, the available genome keys are:\n" +
-            "  ${params.genomes.keySet().join(", ")}\n" +
-            "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        error(error_string)
-    }
-}
+// def genomeExistsError() {
+//     if (params.genomes && params.genome && !params.genomes.containsKey(params.genome)) {
+//         def error_string = "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+//             "  Genome '${params.genome}' not found in any config files provided to the pipeline.\n" +
+//             "  Currently, the available genome keys are:\n" +
+//             "  ${params.genomes.keySet().join(", ")}\n" +
+//             "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+//         error(error_string)
+//     }
+// }
 //
 // Generate methods description for MultiQC
 //

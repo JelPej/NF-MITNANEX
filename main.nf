@@ -18,7 +18,7 @@
 include { NFMITNANEXT  } from './workflows/nfmitnanext'
 include { PIPELINE_INITIALISATION } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
 include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
-include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
+//include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,13 +26,11 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
+
 // TODO nf-core: Remove this line if you don't need a FASTA file
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
-params.fasta = getGenomeAttribute('fasta')
-//params.samplesheet = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
-params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
-params.outdir = 'results'
+//params.fasta = getGenomeAttribute('fasta')
 
 // Channel.fromPath(params.samplesheet).view(i -> 'out main param def $i')
 
@@ -69,7 +67,6 @@ workflow NFCORE_NFMITNANEXT {
         return [meta, fastq]
     }
     .set { ch_samplesheet }    
-    ch_fasta = params.fasta
     //
     // WORKFLOW: Run pipeline
     //
@@ -77,8 +74,11 @@ workflow NFCORE_NFMITNANEXT {
         ch_samplesheet,
         ch_fasta
     )
-//     emit:
-//     multiqc_report = NFMITNANEXT.out.multiqc_report // channel: /path/to/multiqc_report.html
+
+    // emit:
+    //     NFMITNANEXT.out // TODO: not set, but it must return something like assembly, or several data
+    //     ch_samplesheet
+    //     ch_fasta
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,10 +87,11 @@ workflow NFCORE_NFMITNANEXT {
 */
 
 workflow {
-
     main:
     //params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
     //
+    ch_fasta = params.fasta
+
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
@@ -107,7 +108,7 @@ workflow {
     //
     NFCORE_NFMITNANEXT (
         PIPELINE_INITIALISATION.out.samplesheet,
-        params.genome
+        ch_fasta
     )
     //
     // SUBWORKFLOW: Run completion tasks
@@ -118,8 +119,8 @@ workflow {
     //     params.plaintext_email,
     //     params.outdir,
     //     params.monochrome_logs,
-    //     params.hook_url
-    //     // NFCORE_NFMITNANEXT.out.multiqc_report
+    //     params.hook_url,
+    //    // NFCORE_NFMITNANEXT.out.multiqc_report
     // )
 }
 
