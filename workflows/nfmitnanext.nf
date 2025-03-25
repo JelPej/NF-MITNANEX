@@ -11,6 +11,8 @@ include { softwareVersionsToYAML } from '../subworkflows/nf-core/utils_nfcore_pi
 include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nfmitnanext_pipeline'
 include { CHOPPER } from '../modules/nf-core/chopper/main'
 include { MINIMAP2_ALIGN } from '../modules/nf-core/minimap2/align/main'
+include { SAMTOOLS_VIEW } from '../modules/nf-core/samtools/view/main'
+include { FLYE } from '../modules/nf-core/flye/main' 
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -23,11 +25,12 @@ workflow NFMITNANEXT {
     take:
     ch_samplesheet // channel: samplesheet read in from --input
     ch_fasta
+    ch_contamination_fasta
 
     main:
     // ch_samplesheet.view { i -> "samplesheet: ${i}" }
     // reference_genome.view { i -> "reference_genome: ${i}" }
-    CHOPPER (ch_samplesheet,ch_fasta)
+    CHOPPER (ch_samplesheet,ch_contamination_fasta)
     
     
     MINIMAP2_ALIGN (
@@ -39,6 +42,8 @@ workflow NFMITNANEXT {
             false
         )
     ch_versions = Channel.empty()
+    MINIMAP2_ALIGN.out.bam.view()
+    //SAMTOOLS_VIEW()
 
     emit:
     "Hola"
