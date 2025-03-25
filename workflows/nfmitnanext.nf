@@ -32,15 +32,33 @@ workflow NFMITNANEXT {
     // reference_genome.view { i -> "reference_genome: ${i}" }
     CHOPPER (ch_samplesheet,ch_fasta)
     
-    
+    // Map reads to reference genome
     MINIMAP2_ALIGN (
             CHOPPER.out.fastq ,
             tuple ([ id:'test_ref'], file(ch_fasta)),
             true,
-            true,
+            "bai",
             false,
             false
         )
+
+    // Create dict for variant calling
+    PICARD_CREATESEQUENCEDICTIONARY (
+        tuple ([ id:'test_ref', single_end:true], file(ch_fasta))
+    )
+
+        
+    GATK4_MUTECT2(
+        MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index),
+        ch_fasta,
+        ch_fai,
+        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict.map{it -> it[1]},
+        [],
+        [],
+        [],
+        []
+    )
+
     ch_versions = Channel.empty()
 
     emit:
