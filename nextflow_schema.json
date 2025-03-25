@@ -48,8 +48,11 @@
                     "minimum": 0,
                     "maximum": 255,   
                     "description": "minimum map quality to filter for minimap2"
+                },
+                "flye_mode": {
+                    "type": "string", 
+                    "description": "flye assembler input data mode"
                 }
-
             }
         },
         "institutional_config_options": {

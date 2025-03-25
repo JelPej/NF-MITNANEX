@@ -36,6 +36,7 @@ params.input = ""
 params.outdir = ""
 params.contamination_fasta = ""
 params.min_mapQ = 10
+params.flye_mode = "--nano-hq"
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,6 +54,7 @@ workflow NFCORE_NFMITNANEXT {
     ch_fasta
     ch_contamination_fasta
     ch_min_mapQ
+    ch_flye_mode
 
     main:
 
@@ -79,7 +81,8 @@ workflow NFCORE_NFMITNANEXT {
         samplesheet,
         ch_fasta,
         ch_contamination_fasta,
-        ch_min_mapQ
+        ch_min_mapQ,
+        ch_flye_mode
     )
 
     // emit:
@@ -100,6 +103,7 @@ workflow {
     ch_fasta = params.fasta
     ch_contamination_fasta = params.contamination_fasta
     ch_min_mapQ = params.min_mapQ
+    ch_flye_mode = params.flye_mode
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
@@ -118,7 +122,8 @@ workflow {
         PIPELINE_INITIALISATION.out.samplesheet,
         ch_fasta,
         ch_contamination_fasta,
-        ch_min_mapQ
+        ch_min_mapQ,
+        ch_flye_mode
     )
     //
     // SUBWORKFLOW: Run completion tasks

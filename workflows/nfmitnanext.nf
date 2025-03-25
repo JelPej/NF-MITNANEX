@@ -12,6 +12,7 @@ include { methodsDescriptionText } from '../subworkflows/local/utils_nfcore_nfmi
 include { CHOPPER } from '../modules/nf-core/chopper/main'
 include { MINIMAP2_ALIGN } from '../modules/nf-core/minimap2/align/main'
 include { SAMTOOLS_VIEW } from '../modules/nf-core/samtools/view/main'
+include { SAMTOOLS_BAM2FQ } from '../modules/nf-core/samtools/bam2fq/main'
 include { FLYE } from '../modules/nf-core/flye/main' 
 
 /*
@@ -27,6 +28,7 @@ workflow NFMITNANEXT {
     ch_fasta
     ch_contamination_fasta
     ch_min_mapQ
+    ch_flye_mode
 
     main:
     // ch_samplesheet.view { i -> "samplesheet: ${i}" }
@@ -65,6 +67,16 @@ workflow NFMITNANEXT {
         ch_samtools_input,
         tuple ([ id:'test_ref'], file(ch_fasta)),
         ch_min_mapQ)
+    
+    SAMTOOLS_BAM2FQ(
+        SAMTOOLS_VIEW.out.bam,
+        false
+    )
+    //ch_flye_mode.view()
+    FLYE (
+        SAMTOOLS_BAM2FQ.out.reads,
+        ch_flye_mode
+    )
 
     //FLYE(ch_samplesheet,ch_contamination_fasta)
     // FLYE_ALIGN (
