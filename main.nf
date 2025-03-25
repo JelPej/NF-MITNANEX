@@ -30,6 +30,11 @@ include { getGenomeAttribute      } from './subworkflows/local/utils_nfcore_nfmi
 //   This is an example of how to use getGenomeAttribute() to fetch parameters
 //   from igenomes.config using `--genome`
 params.fasta = getGenomeAttribute('fasta')
+//params.samplesheet = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
+params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
+params.outdir = 'results'
+
+// Channel.fromPath(params.samplesheet).view(i -> 'out main param def $i')
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -44,17 +49,36 @@ workflow NFCORE_NFMITNANEXT {
 
     take:
     samplesheet // channel: samplesheet read in from --input
+    ch_fasta
+    
 
     main:
 
+    // ch_samplesheet = Channel.fromPath(params.input).view(i -> 'out main first $i')
+
+
+    Channel
+    .fromPath(params.input)
+    .splitCsv(header: true)
+    .map { row ->
+        def meta = [
+            id: row.sample,
+            single_end: true
+        ]
+        def fastq = file(row.fastq_1)
+        return [meta, fastq]
+    }
+    .set { ch_samplesheet }    
+    ch_fasta = params.fasta
     //
     // WORKFLOW: Run pipeline
     //
     NFMITNANEXT (
-        samplesheet
+        ch_samplesheet,
+        ch_fasta
     )
-    emit:
-    multiqc_report = NFMITNANEXT.out.multiqc_report // channel: /path/to/multiqc_report.html
+//     emit:
+//     multiqc_report = NFMITNANEXT.out.multiqc_report // channel: /path/to/multiqc_report.html
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -65,6 +89,7 @@ workflow NFCORE_NFMITNANEXT {
 workflow {
 
     main:
+    //params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
     //
     // SUBWORKFLOW: Run initialisation tasks
     //
@@ -81,20 +106,21 @@ workflow {
     // WORKFLOW: Run main workflow
     //
     NFCORE_NFMITNANEXT (
-        PIPELINE_INITIALISATION.out.samplesheet
+        PIPELINE_INITIALISATION.out.samplesheet,
+        params.genome
     )
     //
     // SUBWORKFLOW: Run completion tasks
     //
-    PIPELINE_COMPLETION (
-        params.email,
-        params.email_on_fail,
-        params.plaintext_email,
-        params.outdir,
-        params.monochrome_logs,
-        params.hook_url,
-        NFCORE_NFMITNANEXT.out.multiqc_report
-    )
+    // PIPELINE_COMPLETION (
+    //     params.email,
+    //     params.email_on_fail,
+    //     params.plaintext_email,
+    //     params.outdir,
+    //     params.monochrome_logs,
+    //     params.hook_url
+    //     // NFCORE_NFMITNANEXT.out.multiqc_report
+    // )
 }
 
 /*
