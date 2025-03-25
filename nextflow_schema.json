@@ -45,7 +45,15 @@
                     "description": "Chopper contamination fasta",
                     "fa_icon": "fas fa-folder-open",
                     "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/results_test"
+                },
+                "min_mapQ": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 255,   
+                    "description": "minimum map quality to filter for minimap2",
+                    "default": 10
                 }
+
             }
         },
         "institutional_config_options": {

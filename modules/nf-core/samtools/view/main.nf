@@ -10,8 +10,7 @@ process SAMTOOLS_VIEW {
     input:
     tuple val(meta), path(input), path(index)
     tuple val(meta2), path(fasta)
-    path qname
-    val index_format
+    val min_mapQ
 
     output:
     tuple val(meta), path("${prefix}.bam"),                                    emit: bam,              optional: true
@@ -28,6 +27,8 @@ process SAMTOOLS_VIEW {
     task.ext.when == null || task.ext.when
 
     script:
+    def filter_flags = "--min-MQ ${min_mapQ} -F4,2048"
+    def index_format = false
     def args = task.ext.args ?: ''
     def args2 = task.ext.args2 ?: ''
     prefix = task.ext.prefix ?: "${meta.id}"
@@ -37,11 +38,10 @@ process SAMTOOLS_VIEW {
                 args.contains("--output-fmt cram") ? "cram" :
                 input.getExtension()
 
-    output_file = index_format ? "${prefix}.${file_type}##idx##${prefix}.${file_type}.${index_format} --write-index" : "${prefix}.${file_type}"
+    output_file = "${prefix}_filtered.${file_type}"
     // Can't choose index type of unselected file
-    readnames = qname ? "--qname-file ${qname} --output-unselected ${prefix}.unselected.${file_type}": ""
 
-    if ("$input" == "${prefix}.${file_type}") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
+    if ("$input" == "${output_file}") error "Input and output names are the same, use \"task.ext.prefix\" to disambiguate!"
     if (index_format) {
         if (!index_format.matches('bai|csi|crai')) {
             error "Index format not one of bai, csi, crai."
@@ -50,15 +50,8 @@ process SAMTOOLS_VIEW {
         }
     }
     """
-    samtools \\
-        view \\
-        --threads ${task.cpus-1} \\
-        ${reference} \\
-        ${readnames} \\
-        $args \\
-        -o ${output_file} \\
-        $input \\
-        $args2
+    ls ${input}
+    samtools view --threads ${task.cpus-1} ${reference} ${filter_flags} -o ${output_file} ${input}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

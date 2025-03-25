@@ -35,6 +35,7 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfmi
 params.input = ""
 params.outdir = ""
 params.contamination_fasta = ""
+params.min_mapQ = 10
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,7 +52,7 @@ workflow NFCORE_NFMITNANEXT {
     samplesheet // channel: samplesheet read in from --input
     ch_fasta
     ch_contamination_fasta
-    
+    ch_min_mapQ
 
     main:
 
@@ -77,7 +78,8 @@ workflow NFCORE_NFMITNANEXT {
     //    ch_samplesheet,
         samplesheet,
         ch_fasta,
-        ch_contamination_fasta
+        ch_contamination_fasta,
+        ch_min_mapQ
     )
 
     // emit:
@@ -97,7 +99,7 @@ workflow {
     //
     ch_fasta = params.fasta
     ch_contamination_fasta = params.contamination_fasta
-
+    ch_min_mapQ = params.min_mapQ
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
@@ -115,7 +117,8 @@ workflow {
     NFCORE_NFMITNANEXT (
         PIPELINE_INITIALISATION.out.samplesheet,
         ch_fasta,
-        ch_contamination_fasta
+        ch_contamination_fasta,
+        ch_min_mapQ
     )
     //
     // SUBWORKFLOW: Run completion tasks

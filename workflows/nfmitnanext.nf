@@ -26,6 +26,7 @@ workflow NFMITNANEXT {
     ch_samplesheet // channel: samplesheet read in from --input
     ch_fasta
     ch_contamination_fasta
+    ch_min_mapQ
 
     main:
     // ch_samplesheet.view { i -> "samplesheet: ${i}" }
@@ -37,13 +38,40 @@ workflow NFMITNANEXT {
             CHOPPER.out.fastq ,
             tuple ([ id:'test_ref'], file(ch_fasta)),
             true,
-            true,
+            "bai",
             false,
             false
         )
+
     ch_versions = Channel.empty()
-    MINIMAP2_ALIGN.out.bam.view()
-    //SAMTOOLS_VIEW()
+
+    // def index = MINIMAP2_ALIGN.out.index.last()
+    // index.view()
+    // ch_samtools_input = MINIMAP2_ALIGN
+    //     .out
+    //     .bam
+    //     .view()
+    //     .map { tuple ->
+    //             def meta = tuple[0]
+    //             def input = tuple[1]
+    //             //def index = MINIMAP2_ALIGN.out.index.last()
+    //             return tuple(meta, input,index)
+    //         }
+    //     //.view()
+    // ch_samtools_input.view()
+
+    ch_samtools_input =  MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index).view()
+    SAMTOOLS_VIEW (
+        ch_samtools_input,
+        tuple ([ id:'test_ref'], file(ch_fasta)),
+        ch_min_mapQ)
+
+    //FLYE(ch_samplesheet,ch_contamination_fasta)
+    // FLYE_ALIGN (
+    //     SAMTOOLS.out.bam , 
+    //     tuple([])
+    // )
+
 
     emit:
     "Hola"
