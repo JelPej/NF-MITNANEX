@@ -176,6 +176,11 @@
             "type": "string",
             "format": "file-path",
             "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz"
+        },
+        "fai": {
+            "type": "string",
+            "format": "file-path",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz.fai"
         }
     }
 }

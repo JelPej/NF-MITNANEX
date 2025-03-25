@@ -41,22 +41,32 @@ workflow NFMITNANEXT {
             false,
             false
         )
-
+    
+    Channel
+        .fromPath(ch_fasta)
+        .map { fasta_file ->
+        def meta = [ id: fasta_file.getBaseName().replaceAll(/\.(fa|fasta)(\.gz)?$/, '') ]
+        tuple(meta, fasta_file)
+        }
+        .set { ch_dict_name }
+        
     // Create dict for variant calling
     PICARD_CREATESEQUENCEDICTIONARY (
-        tuple ([ id:'test_ref', single_end:true], file(ch_fasta))
+        ch_dict_name
     )
 
-        
+    // Variant calling for mitochondria
+
     GATK4_MUTECT2(
-        MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index),
-        ch_fasta,
-        ch_fai,
-        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict.map{it -> it[1]},
+        MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index).map{meta,bam,bai -> tuple(meta,bam,bai,[])},
+        tuple ([ id:'genome'], file(ch_fasta)),
+        tuple([ id:'genome'],file(params.fai)),
+        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
         [],
         [],
         [],
-        []
+        [],
+        true
     )
 
     ch_versions = Channel.empty()

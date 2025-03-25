@@ -39,10 +39,11 @@ process MINIMAP2_ALIGN {
     def samtools_reset_fastq = bam_input ? "samtools reset --threads ${task.cpus-1} $args3 $reads | samtools fastq --threads ${task.cpus-1} $args4 |" : ''
     def query = bam_input ? "-" : reads
     def target = reference ?: (bam_input ? error("BAM input requires reference") : reads)
-
+    def read_group = "-R '@RG\\tID:${meta.id}\\tSM:${meta.id}'"
     """
     $samtools_reset_fastq \\
     minimap2 \\
+        $read_group \\
         $args \\
         -t $task.cpus \\
         $target \\

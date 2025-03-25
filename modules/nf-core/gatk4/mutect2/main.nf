@@ -16,6 +16,7 @@ process GATK4_MUTECT2 {
     path(germline_resource_tbi)
     path(panel_of_normals)
     path(panel_of_normals_tbi)
+    val(mitochondria_resource)
 
     output:
     tuple val(meta), path("*.vcf.gz")     , emit: vcf
@@ -34,6 +35,7 @@ process GATK4_MUTECT2 {
     def interval_command = intervals ? "--intervals $intervals" : ""
     def pon_command = panel_of_normals ? "--panel-of-normals $panel_of_normals" : ""
     def gr_command = germline_resource ? "--germline-resource $germline_resource" : ""
+    def mito_command = mitochondria_resource ? "--mitochondria-mode" : ""
 
     def avail_mem = 3072
     if (!task.memory) {
@@ -50,6 +52,7 @@ process GATK4_MUTECT2 {
         $pon_command \\
         $gr_command \\
         $interval_command \\
+        $mito_command \\
         --tmp-dir . \\
         $args
 
