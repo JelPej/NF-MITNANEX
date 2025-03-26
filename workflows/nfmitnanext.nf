@@ -23,6 +23,8 @@ include { SAMTOOLS_FAIDX } from '../modules/nf-core/samtools/faidx/main'
 include { FLYE } from '../modules/nf-core/flye/main'
 include { LIFTOFF } from '../modules/nf-core/liftoff/main'
 include { SEQKIT_GREP } from '../modules/nf-core/seqkit/grep/main'
+include { MITOMASTER_SUBMIT } from '../modules/local/mitomaster/main'
+include { BCFTOOLS_QUERY } from '../modules/nf-core/bcftools/query/main' 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -53,7 +55,7 @@ workflow NFMITNANEXT {
             false,
             false
         )
-    ch_samtools_input =  MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index).view()
+    ch_samtools_input =  MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index)
     SAMTOOLS_VIEW (
         ch_samtools_input,
         tuple ([ id:'test_ref'], file(ch_fasta)),
@@ -120,7 +122,7 @@ workflow NFMITNANEXT {
     GATK4_MUTECT2(
         MINIMAP2_ALIGN_2.out.bam.join(MINIMAP2_ALIGN_2.out.index).map{meta,bam,bai -> tuple(meta,bam,bai,[])},
         tuple ([ id:'genome'], file(ch_fasta)),
-        tuple([ id:'genome'],file(params.fai)),
+        SAMTOOLS_FAIDX.out.fai,
         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
         [],
         [],
@@ -136,7 +138,7 @@ workflow NFMITNANEXT {
     GATK4_FILTERMUTECTCALLS(
         GATK4_MUTECT2.out.vcf.join(GATK4_MUTECT2.out.tbi).join(GATK4_MUTECT2.out.stats).map{meta,vcf,tbi,stats -> tuple(meta,vcf,tbi,stats,[],[],[],[])},
         tuple([ id:'test_ref', single_end:true], file(ch_fasta)),
-        tuple([ id:'test_ref', single_end:true], file(params.fai)),
+        SAMTOOLS_FAIDX.out.fai,
         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
         true
     )
@@ -153,6 +155,17 @@ workflow NFMITNANEXT {
             params.header_dloop,
             params.rename_chr,
             "DLOOP"
+    )
+
+    BCFTOOLS_QUERY (
+        GATK4_FILTERMUTECTCALLS.out.vcf.join(GATK4_FILTERMUTECTCALLS.out.tbi),
+        [],
+        [],
+        []
+
+    )
+    MITOMASTER_SUBMIT (
+        BCFTOOLS_QUERY.out.output
     )
 
     // def index = MINIMAP2_ALIGN.out.index.last()
