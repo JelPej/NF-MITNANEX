@@ -17,6 +17,7 @@ include { SAMTOOLS_BAM2FQ } from '../modules/nf-core/samtools/bam2fq/main'
 include { SAMTOOLS_FAIDX } from '../modules/nf-core/samtools/faidx/main'
 include { FLYE } from '../modules/nf-core/flye/main'
 include { LIFTOFF } from '../modules/nf-core/liftoff/main'
+include { SEQKIT_GREP } from '../modules/nf-core/seqkit/grep/main'
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     RUN MAIN WORKFLOW
@@ -82,8 +83,14 @@ workflow NFMITNANEXT {
         ch_flye_mode
     )
 
-    LIFTOFF (
+    // Modified version of the module, heuristic for mitochondria selection, may not be accurate
+    SEQKIT_GREP (
         FLYE.out.fasta,
+        FLYE.out.txt
+    )
+
+    LIFTOFF (
+        SEQKIT_GREP.out.filter,
         file(ch_fasta),
         ch_ref_gff,
         []
@@ -97,7 +104,7 @@ workflow NFMITNANEXT {
 
     MINIMAP2_ALIGN_2 (
         SAMTOOLS_BAM2FQ.out.reads ,
-        FLYE.out.fasta,
+        SEQKIT_GREP.out.filter,
         true,
         "bai",
         false,
