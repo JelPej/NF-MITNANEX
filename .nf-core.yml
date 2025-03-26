@@ -9,7 +9,6 @@ lint:
     - assets/email_template.html
     - assets/email_template.txt
 
-
 template:
   org: nf-core
   name: nfmitnanext
