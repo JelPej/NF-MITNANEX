@@ -35,6 +35,7 @@ process FLYE {
         --out-dir . \\
         --threads \\
         $task.cpus \\
+        --meta \\
         $args
 
     gzip -c assembly.fasta > ${prefix}.assembly.fasta.gz

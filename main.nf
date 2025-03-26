@@ -36,6 +36,8 @@ params.input = ""
 params.outdir = ""
 params.contamination_fasta = ""
 params.min_mapQ = 10
+params.flye_mode = "--nano-hq"
+params.ref_gff = ""
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,6 +55,8 @@ workflow NFCORE_NFMITNANEXT {
     ch_fasta
     ch_contamination_fasta
     ch_min_mapQ
+    ch_flye_mode
+    ch_ref_gff
 
     main:
 
@@ -70,7 +74,7 @@ workflow NFCORE_NFMITNANEXT {
     //     def fastq = file(row.fastq_1)
     //     return [meta, fastq]
     // }
-    // .set { ch_samplesheet }    
+    // .set { ch_samplesheet }
     //
     // WORKFLOW: Run pipeline
     //
@@ -79,7 +83,9 @@ workflow NFCORE_NFMITNANEXT {
         samplesheet,
         ch_fasta,
         ch_contamination_fasta,
-        ch_min_mapQ
+        ch_min_mapQ,
+        ch_flye_mode,
+        ch_ref_gff
     )
 
     // emit:
@@ -100,6 +106,8 @@ workflow {
     ch_fasta = params.fasta
     ch_contamination_fasta = params.contamination_fasta
     ch_min_mapQ = params.min_mapQ
+    ch_flye_mode = params.flye_mode
+    ch_ref_gff = params.ref_gff
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
@@ -118,7 +126,9 @@ workflow {
         PIPELINE_INITIALISATION.out.samplesheet,
         ch_fasta,
         ch_contamination_fasta,
-        ch_min_mapQ
+        ch_min_mapQ,
+        ch_flye_mode,
+        ch_ref_gff
     )
     //
     // SUBWORKFLOW: Run completion tasks

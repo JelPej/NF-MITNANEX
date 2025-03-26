@@ -5,10 +5,9 @@ nf_core_version: 3.2.0
 lint:
   multiqc_config: False
   included_configs: False
-  files_exist: 
+  files_exist:
     - assets/email_template.html
     - assets/email_template.txt
-
 
 template:
   org: nf-core
