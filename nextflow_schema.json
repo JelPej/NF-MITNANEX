@@ -46,12 +46,18 @@
                 "min_mapQ": {
                     "type": "integer",
                     "minimum": 0,
-                    "maximum": 255,   
+                    "maximum": 255,
                     "description": "minimum map quality to filter for minimap2"
                 },
                 "flye_mode": {
-                    "type": "string", 
+                    "type": "string",
                     "description": "flye assembler input data mode"
+                },
+                "ref_gff": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "description": "Reference genome gff annnotation file fir assembly annotation"
                 }
             }
         },
