@@ -13,6 +13,7 @@ include { CHOPPER } from '../modules/nf-core/chopper/main'
 include { MINIMAP2_ALIGN } from '../modules/nf-core/minimap2/align/main'
 include { GATK4_MUTECT2 } from '../modules/nf-core/gatk4/mutect2/main'
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/createsequencedictionary/main'
+include { GATK4_FILTERMUTECTCALLS } from '../modules/nf-core/gatk4/filtermutectcalls/main'
 
 
 /*
@@ -75,13 +76,16 @@ workflow NFMITNANEXT {
 
     ch_versions = Channel.empty()
     
+    // ch_prueba=GATK4_MUTECT2.out.vcf.join(GATK4_MUTECT2.out.tbi).join(GATK4_MUTECT2.out.stats)
+    // ch_prueba.view()
     // Filter varaints 
     //gatk FilterMutectCalls --mitochondria-mode -O $vcf_file -R $ref_genome -V $vcf_nofilt_file
     GATK4_FILTERMUTECTCALLS(
-        tuple([ id:'test_ref', single_end:true], GATK4_MUTECT2.out.vcf, GATK4_MUTECT2.out.tbi, GATK4_MUTECT2.out.stats),
-        tuple([ id:'test_ref', single_end:true], ch_fasta),
-        tuple([ id:'test_ref', single_end:true], ch_fai),
-        tuple([ id:'test_ref', single_end:true], PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict.map{it -> it[1]})
+        GATK4_MUTECT2.out.vcf.join(GATK4_MUTECT2.out.tbi).join(GATK4_MUTECT2.out.stats).map{meta,vcf,tbi,stats -> tuple(meta,vcf,tbi,stats,[],[],[],[])},
+        tuple([ id:'test_ref', single_end:true], file(ch_fasta)),
+        tuple([ id:'test_ref', single_end:true], file(params.fai)),
+        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
+        true
     )
 
     emit:

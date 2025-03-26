@@ -12,6 +12,7 @@ process GATK4_FILTERMUTECTCALLS {
     tuple val(meta2), path(fasta)
     tuple val(meta3), path(fai)
     tuple val(meta4), path(dict)
+    val(mitochondria_resource)
 
     output:
     tuple val(meta), path("*.vcf.gz")            , emit: vcf
@@ -30,6 +31,7 @@ process GATK4_FILTERMUTECTCALLS {
     def segmentation_command    = segmentation    ? segmentation.collect{"--tumor-segmentation $it"}.join(' ')                  : ''
     def estimate_command        = estimate        ? " --contamination-estimate ${estimate} "                                    : ''
     def table_command           = table           ? table.collect{"--contamination-table $it"}.join(' ')                        : ''
+    def mito_command = mitochondria_resource ? "--mitochondria-mode" : ""
 
     def avail_mem = 3072
     if (!task.memory) {
@@ -41,8 +43,9 @@ process GATK4_FILTERMUTECTCALLS {
     gatk --java-options "-Xmx${avail_mem}M -XX:-UsePerfData" \\
         FilterMutectCalls \\
         --variant $vcf \\
-        --output ${prefix}.vcf.gz \\
+        --output ${prefix}_filter.vcf.gz \\
         --reference $fasta \\
+        $mito_command \\
         $orientationbias_command \\
         $segmentation_command \\
         $estimate_command \\
