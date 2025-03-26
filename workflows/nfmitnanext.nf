@@ -88,6 +88,14 @@ workflow NFMITNANEXT {
         true
     )
 
+    BCFTOOLS_ANNOTATE(
+        GATK4_FILTERMUTECTCALLS.out.vcf.join(GATK4_FILTERMUTECTCALLS.out.tbi).join(GATK4_FILTERMUTECTCALLS.out.stats),
+        tuple([ id:'test_ref', single_end:true], file(ch_fasta)),
+        tuple([ id:'test_ref', single_end:true], file(params.fai)),
+        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
+        true
+    )
+
     emit:
     "Hola"
 
