@@ -1,0 +1,83 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region OQ288964.1 1 25630
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=498019
+OQ288964.1	Genbank	region	1	25630	.	+	.	ID=OQ288964.1:1..25630;Dbxref=taxon:498019;Is_circular=true;Name=MT;gb-synonym=Candida auris;gbkey=Src;genome=mitochondrion;mol_type=genomic DNA;note=Clade 5;old-name=[Candida] auris;strain=IFRC2087
+OQ288964.1	Genbank	tRNA	218	289	.	+	.	ID=rna-OQ288964.1:218..289;gbkey=tRNA;product=tRNA-Ala
+OQ288964.1	Genbank	exon	218	289	.	+	.	ID=exon-OQ288964.1:218..289-1;Parent=rna-OQ288964.1:218..289;gbkey=tRNA;product=tRNA-Ala
+OQ288964.1	Genbank	gene	333	1064	.	+	.	ID=gene-COX2;Name=COX2;gbkey=Gene;gene=COX2;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	333	1064	.	+	0	ID=cds-WDD58147.1;Parent=gene-COX2;Dbxref=NCBI_GP:WDD58147.1;Name=WDD58147.1;gbkey=CDS;gene=COX2;product=COX2;protein_id=WDD58147.1;transl_table=3
+OQ288964.1	Genbank	tRNA	1269	1339	.	+	.	ID=rna-OQ288964.1:1269..1339;gbkey=tRNA;product=tRNA-Asn
+OQ288964.1	Genbank	exon	1269	1339	.	+	.	ID=exon-OQ288964.1:1269..1339-1;Parent=rna-OQ288964.1:1269..1339;gbkey=tRNA;product=tRNA-Asn
+OQ288964.1	Genbank	gene	1404	1844	.	+	.	ID=gene-NAD6;Name=NAD6;gbkey=Gene;gene=NAD6;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	1404	1844	.	+	0	ID=cds-WDD58148.1;Parent=gene-NAD6;Dbxref=NCBI_GP:WDD58148.1;Name=WDD58148.1;gbkey=CDS;gene=NAD6;product=NAD6;protein_id=WDD58148.1;transl_table=3
+OQ288964.1	Genbank	gene	1850	2800	.	+	.	ID=gene-NAD1;Name=NAD1;gbkey=Gene;gene=NAD1;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	1850	2800	.	+	0	ID=cds-WDD58149.1;Parent=gene-NAD1;Dbxref=NCBI_GP:WDD58149.1;Name=WDD58149.1;gbkey=CDS;gene=NAD1;product=NAD1;protein_id=WDD58149.1;transl_table=3
+OQ288964.1	Genbank	gene	3043	3297	.	+	.	ID=gene-NAD4L;Name=NAD4L;gbkey=Gene;gene=NAD4L;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	3043	3297	.	+	0	ID=cds-WDD58150.1;Parent=gene-NAD4L;Dbxref=NCBI_GP:WDD58150.1;Name=WDD58150.1;gbkey=CDS;gene=NAD4L;product=NAD4L;protein_id=WDD58150.1;transl_table=3
+OQ288964.1	Genbank	gene	3297	7436	.	+	.	ID=gene-NAD5;Name=NAD5;Note=coding region not determined due to possible spicing;gbkey=Gene;gene=NAD5;gene_biotype=other
+OQ288964.1	Genbank	gene	7832	8062	.	+	.	ID=gene-ATP9;Name=ATP9;gbkey=Gene;gene=ATP9;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	7832	8062	.	+	0	ID=cds-WDD58151.1;Parent=gene-ATP9;Dbxref=NCBI_GP:WDD58151.1;Name=WDD58151.1;gbkey=CDS;gene=ATP9;product=ATP9;protein_id=WDD58151.1;transl_table=3
+OQ288964.1	Genbank	gene	9735	10853	.	+	.	ID=gene-COB;Name=COB;Note=coding region not determined due to possible spicing;gbkey=Gene;gene=COB;gene_biotype=other
+OQ288964.1	Genbank	gene	10919	12322	.	+	.	ID=gene-NAD2;Name=NAD2;gbkey=Gene;gene=NAD2;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	10919	12322	.	+	0	ID=cds-WDD58152.1;Parent=gene-NAD2;Dbxref=NCBI_GP:WDD58152.1;Name=WDD58152.1;gbkey=CDS;gene=NAD2;product=NAD2;protein_id=WDD58152.1;transl_table=3
+OQ288964.1	Genbank	gene	12324	12710	.	+	.	ID=gene-NAD3;Name=NAD3;gbkey=Gene;gene=NAD3;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	12324	12710	.	+	0	ID=cds-WDD58153.1;Parent=gene-NAD3;Dbxref=NCBI_GP:WDD58153.1;Name=WDD58153.1;gbkey=CDS;gene=NAD3;product=NAD3;protein_id=WDD58153.1;transl_table=3
+OQ288964.1	Genbank	tRNA	12950	13034	.	+	.	ID=rna-OQ288964.1:12950..13034;gbkey=tRNA;product=tRNA-Ser
+OQ288964.1	Genbank	exon	12950	13034	.	+	.	ID=exon-OQ288964.1:12950..13034-1;Parent=rna-OQ288964.1:12950..13034;gbkey=tRNA;product=tRNA-Ser
+OQ288964.1	Genbank	tRNA	13081	13162	.	+	.	ID=rna-OQ288964.1:13081..13162;gbkey=tRNA;product=tRNA-Leu
+OQ288964.1	Genbank	exon	13081	13162	.	+	.	ID=exon-OQ288964.1:13081..13162-1;Parent=rna-OQ288964.1:13081..13162;gbkey=tRNA;product=tRNA-Leu
+OQ288964.1	Genbank	gene	13192	14562	.	+	.	ID=gene-NAD4;Name=NAD4;gbkey=Gene;gene=NAD4;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	13192	14562	.	+	0	ID=cds-WDD58154.1;Parent=gene-NAD4;Dbxref=NCBI_GP:WDD58154.1;Name=WDD58154.1;gbkey=CDS;gene=NAD4;product=NAD4;protein_id=WDD58154.1;transl_table=3
+OQ288964.1	Genbank	tRNA	14672	14743	.	+	.	ID=rna-OQ288964.1:14672..14743;gbkey=tRNA;product=tRNA-Arg
+OQ288964.1	Genbank	exon	14672	14743	.	+	.	ID=exon-OQ288964.1:14672..14743-1;Parent=rna-OQ288964.1:14672..14743;gbkey=tRNA;product=tRNA-Arg
+OQ288964.1	Genbank	tRNA	14954	15025	.	+	.	ID=rna-OQ288964.1:14954..15025;gbkey=tRNA;product=tRNA-Val
+OQ288964.1	Genbank	exon	14954	15025	.	+	.	ID=exon-OQ288964.1:14954..15025-1;Parent=rna-OQ288964.1:14954..15025;gbkey=tRNA;product=tRNA-Val
+OQ288964.1	Genbank	tRNA	15028	15098	.	+	.	ID=rna-OQ288964.1:15028..15098;gbkey=tRNA;product=tRNA-Trp
+OQ288964.1	Genbank	exon	15028	15098	.	+	.	ID=exon-OQ288964.1:15028..15098-1;Parent=rna-OQ288964.1:15028..15098;gbkey=tRNA;product=tRNA-Trp
+OQ288964.1	Genbank	tRNA	15105	15175	.	+	.	ID=rna-OQ288964.1:15105..15175;gbkey=tRNA;product=tRNA-Phe
+OQ288964.1	Genbank	exon	15105	15175	.	+	.	ID=exon-OQ288964.1:15105..15175-1;Parent=rna-OQ288964.1:15105..15175;gbkey=tRNA;product=tRNA-Phe
+OQ288964.1	Genbank	tRNA	15183	15254	.	+	.	ID=rna-OQ288964.1:15183..15254;gbkey=tRNA;product=tRNA-Lys
+OQ288964.1	Genbank	exon	15183	15254	.	+	.	ID=exon-OQ288964.1:15183..15254-1;Parent=rna-OQ288964.1:15183..15254;gbkey=tRNA;product=tRNA-Lys
+OQ288964.1	Genbank	gene	15409	16218	.	+	.	ID=gene-COX3;Name=COX3;gbkey=Gene;gene=COX3;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	15409	16218	.	+	0	ID=cds-WDD58155.1;Parent=gene-COX3;Dbxref=NCBI_GP:WDD58155.1;Name=WDD58155.1;gbkey=CDS;gene=COX3;product=COX3;protein_id=WDD58155.1;transl_table=3
+OQ288964.1	Genbank	tRNA	16485	16557	.	+	.	ID=rna-OQ288964.1:16485..16557;gbkey=tRNA;product=tRNA-Gln
+OQ288964.1	Genbank	exon	16485	16557	.	+	.	ID=exon-OQ288964.1:16485..16557-1;Parent=rna-OQ288964.1:16485..16557;gbkey=tRNA;product=tRNA-Gln
+OQ288964.1	Genbank	tRNA	16691	16764	.	+	.	ID=rna-OQ288964.1:16691..16764;gbkey=tRNA;product=tRNA-Asp
+OQ288964.1	Genbank	exon	16691	16764	.	+	.	ID=exon-OQ288964.1:16691..16764-1;Parent=rna-OQ288964.1:16691..16764;gbkey=tRNA;product=tRNA-Asp
+OQ288964.1	Genbank	tRNA	16911	16982	.	+	.	ID=rna-OQ288964.1:16911..16982;gbkey=tRNA;product=tRNA-Arg
+OQ288964.1	Genbank	exon	16911	16982	.	+	.	ID=exon-OQ288964.1:16911..16982-1;Parent=rna-OQ288964.1:16911..16982;gbkey=tRNA;product=tRNA-Arg
+OQ288964.1	Genbank	tRNA	16989	17059	.	+	.	ID=rna-OQ288964.1:16989..17059;gbkey=tRNA;product=tRNA-Met
+OQ288964.1	Genbank	exon	16989	17059	.	+	.	ID=exon-OQ288964.1:16989..17059-1;Parent=rna-OQ288964.1:16989..17059;gbkey=tRNA;product=tRNA-Met
+OQ288964.1	Genbank	tRNA	17231	17301	.	+	.	ID=rna-OQ288964.1:17231..17301;gbkey=tRNA;product=tRNA-Met
+OQ288964.1	Genbank	exon	17231	17301	.	+	.	ID=exon-OQ288964.1:17231..17301-1;Parent=rna-OQ288964.1:17231..17301;gbkey=tRNA;product=tRNA-Met
+OQ288964.1	Genbank	rRNA	17317	18734	.	+	.	ID=rna-OQ288964.1:17317..18734;gbkey=rRNA;product=small subunit ribosomal RNA
+OQ288964.1	Genbank	exon	17317	18734	.	+	.	ID=exon-OQ288964.1:17317..18734-1;Parent=rna-OQ288964.1:17317..18734;gbkey=rRNA;product=small subunit ribosomal RNA
+OQ288964.1	Genbank	tRNA	19048	19118	.	+	.	ID=rna-OQ288964.1:19048..19118;gbkey=tRNA;product=tRNA-Ile
+OQ288964.1	Genbank	exon	19048	19118	.	+	.	ID=exon-OQ288964.1:19048..19118-1;Parent=rna-OQ288964.1:19048..19118;gbkey=tRNA;product=tRNA-Ile
+OQ288964.1	Genbank	tRNA	19125	19205	.	+	.	ID=rna-OQ288964.1:19125..19205;gbkey=tRNA;product=tRNA-Leu
+OQ288964.1	Genbank	exon	19125	19205	.	+	.	ID=exon-OQ288964.1:19125..19205-1;Parent=rna-OQ288964.1:19125..19205;gbkey=tRNA;product=tRNA-Leu
+OQ288964.1	Genbank	tRNA	19213	19296	.	+	.	ID=rna-OQ288964.1:19213..19296;gbkey=tRNA;product=tRNA-Tyr
+OQ288964.1	Genbank	exon	19213	19296	.	+	.	ID=exon-OQ288964.1:19213..19296-1;Parent=rna-OQ288964.1:19213..19296;gbkey=tRNA;product=tRNA-Tyr
+OQ288964.1	Genbank	tRNA	19301	19372	.	+	.	ID=rna-OQ288964.1:19301..19372;gbkey=tRNA;product=tRNA-His
+OQ288964.1	Genbank	exon	19301	19372	.	+	.	ID=exon-OQ288964.1:19301..19372-1;Parent=rna-OQ288964.1:19301..19372;gbkey=tRNA;product=tRNA-His
+OQ288964.1	Genbank	tRNA	19379	19450	.	+	.	ID=rna-OQ288964.1:19379..19450;gbkey=tRNA;product=tRNA-Met
+OQ288964.1	Genbank	exon	19379	19450	.	+	.	ID=exon-OQ288964.1:19379..19450-1;Parent=rna-OQ288964.1:19379..19450;gbkey=tRNA;product=tRNA-Met
+OQ288964.1	Genbank	tRNA	19460	19532	.	+	.	ID=rna-OQ288964.1:19460..19532;gbkey=tRNA;product=tRNA-Thr
+OQ288964.1	Genbank	exon	19460	19532	.	+	.	ID=exon-OQ288964.1:19460..19532-1;Parent=rna-OQ288964.1:19460..19532;gbkey=tRNA;product=tRNA-Thr
+OQ288964.1	Genbank	tRNA	19675	19745	.	+	.	ID=rna-OQ288964.1:19675..19745;gbkey=tRNA;product=tRNA-Glu
+OQ288964.1	Genbank	exon	19675	19745	.	+	.	ID=exon-OQ288964.1:19675..19745-1;Parent=rna-OQ288964.1:19675..19745;gbkey=tRNA;product=tRNA-Glu
+OQ288964.1	Genbank	tRNA	19749	19820	.	+	.	ID=rna-OQ288964.1:19749..19820;gbkey=tRNA;product=tRNA-Gly
+OQ288964.1	Genbank	exon	19749	19820	.	+	.	ID=exon-OQ288964.1:19749..19820-1;Parent=rna-OQ288964.1:19749..19820;gbkey=tRNA;product=tRNA-Gly
+OQ288964.1	Genbank	tRNA	19979	20051	.	+	.	ID=rna-OQ288964.1:19979..20051;gbkey=tRNA;product=tRNA-Pro
+OQ288964.1	Genbank	exon	19979	20051	.	+	.	ID=exon-OQ288964.1:19979..20051-1;Parent=rna-OQ288964.1:19979..20051;gbkey=tRNA;product=tRNA-Pro
+OQ288964.1	Genbank	gene	20130	20276	.	+	.	ID=gene-ATP8;Name=ATP8;gbkey=Gene;gene=ATP8;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	20130	20276	.	+	0	ID=cds-WDD58156.1;Parent=gene-ATP8;Dbxref=NCBI_GP:WDD58156.1;Name=WDD58156.1;gbkey=CDS;gene=ATP8;product=ATP8;protein_id=WDD58156.1;transl_table=3
+OQ288964.1	Genbank	gene	20439	21179	.	+	.	ID=gene-ATP6;Name=ATP6;gbkey=Gene;gene=ATP6;gene_biotype=protein_coding
+OQ288964.1	Genbank	CDS	20439	21179	.	+	0	ID=cds-WDD58157.1;Parent=gene-ATP6;Dbxref=NCBI_GP:WDD58157.1;Name=WDD58157.1;gbkey=CDS;gene=ATP6;product=ATP6;protein_id=WDD58157.1;transl_table=3
+OQ288964.1	Genbank	gene	21609	23224	.	+	.	ID=gene-COX1;Name=COX1;Note=coding region not determined due to possible spicing;gbkey=Gene;gene=COX1;gene_biotype=other
+OQ288964.1	Genbank	rRNA	23233	25847	.	+	.	ID=rna-OQ288964.1:1..25630;gbkey=rRNA;product=large subunit ribosomal RNA
+OQ288964.1	Genbank	exon	23233	25847	.	+	.	ID=exon-OQ288964.1:1..25630-1;Parent=rna-OQ288964.1:1..25630;gbkey=rRNA;product=large subunit ribosomal RNA
+OQ288961.1	Genbank	match	1	27073	.	+	.	ID=aln0;Target=OQ288960.1 1 28217 +;Gap=M1167 I1 M220 I1 M1420 I2 M11382 I1 M3490 D1 M5045 D1 M1053 I1141 M3294
+

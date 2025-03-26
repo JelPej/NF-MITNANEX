@@ -1,0 +1,7 @@
+input: '/home/andresfl/NF-MITNANEX/testing_hack/samples.csv'
+outdir: 'results'
+fasta: '/home/andresfl/NF-MITNANEX/testing_hack/candida_mitochondria.fasta'
+contamination_fasta: '/home/andresfl/NF-MITNANEX/testing_hack/fake_contamination.fasta'
+min_mapQ: 15
+flye_mode: '--nano-hq'
+ref_gff: '/home/andresfl/NF-MITNANEX/testing_hack/candida_mitochondria_test_annotation.gff3'

@@ -1,0 +1,7 @@
+@SQ	SN:chr1	LN:50
+read1	16	chr1	1	255	46M3D1M	*	0	0	ATTTAAAAATTAATTTAATGCTTGGCTAAATCTTAATTACATATATT	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+read2	0	chr1	1	255	46M3D1M	*	0	0	ATTTAAAAATTAATTTAATGCTTGGCTAAATCTTAATTACATATATT	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+read4	4	chr1	1	255	46M3D1M	*	0	0	ATTTAAAAATTAATTTAATGCTTGGCTAAATCTTAATTACATATATT	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+read5	2048	chr1	1	255	46M3D1M	*	0	0	ATTTAAAAATTAATTTAATGCTTGGCTAAATCTTAATTACATATATT	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+read6	16	chr1	1	2	46M3D1M	*	0	0	ATTTAAAAATTAATTTAATGCTTGGCTAAATCTTAATTACATATATT	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+read7	0	chr1	1	3	46M3D1M	*	0	0	ATTTAAAAATTAATTTAATGCTTGGCTAAATCTTAATTACATATATT	<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
