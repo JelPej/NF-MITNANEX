@@ -56,6 +56,10 @@ workflow NFMITNANEXT {
     )
 
     // Variant calling for mitochondria
+    // TODO some parameters are not set yet
+    // gatk Mutect2 -R $ref_genome -L $ID --mitochondria-mode \
+    // --annotation "DepthPerAlleleBySample" --min-pruning $min_pruning \
+    // $kmer_size -I $aln_file -O $vcf_nofilt_file
 
     GATK4_MUTECT2(
         MINIMAP2_ALIGN.out.bam.join(MINIMAP2_ALIGN.out.index).map{meta,bam,bai -> tuple(meta,bam,bai,[])},
@@ -70,6 +74,15 @@ workflow NFMITNANEXT {
     )
 
     ch_versions = Channel.empty()
+    
+    // Filter varaints 
+    //gatk FilterMutectCalls --mitochondria-mode -O $vcf_file -R $ref_genome -V $vcf_nofilt_file
+    GATK4_FILTERMUTECTCALLS(
+        tuple([ id:'test_ref', single_end:true], GATK4_MUTECT2.out.vcf, GATK4_MUTECT2.out.tbi, GATK4_MUTECT2.out.stats),
+        tuple([ id:'test_ref', single_end:true], ch_fasta),
+        tuple([ id:'test_ref', single_end:true], ch_fai),
+        tuple([ id:'test_ref', single_end:true], PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict.map{it -> it[1]})
+    )
 
     emit:
     "Hola"
