@@ -14,6 +14,8 @@ include { MINIMAP2_ALIGN } from '../modules/nf-core/minimap2/align/main'
 include { GATK4_MUTECT2 } from '../modules/nf-core/gatk4/mutect2/main'
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/createsequencedictionary/main'
 include { GATK4_FILTERMUTECTCALLS } from '../modules/nf-core/gatk4/filtermutectcalls/main'
+//include { HAPLOGREP3_CLASSIFY } from '../modules/nf-core/haplogrep3/classify/main'
+include { HAPLOCHECK } from '../modules/nf-core/haplocheck/main'                                                                         
 
 
 /*
@@ -86,6 +88,10 @@ workflow NFMITNANEXT {
         tuple([ id:'test_ref', single_end:true], file(params.fai)),
         PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
         true
+    )
+
+    HAPLOCHECK(
+        GATK4_FILTERMUTECTCALLS.out.vcf
     )
 
     emit:
