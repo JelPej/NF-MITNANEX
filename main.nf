@@ -32,7 +32,12 @@ include { PIPELINE_COMPLETION     } from './subworkflows/local/utils_nfcore_nfmi
 //   from igenomes.config using `--genome`
 //params.fasta = getGenomeAttribute('fasta')
 
-// Channel.fromPath(params.samplesheet).view(i -> 'out main param def $i')
+params.input = ""
+params.outdir = ""
+params.contamination_fasta = ""
+params.min_mapQ = 10
+params.flye_mode = "--nano-hq"
+params.ref_gff = ""
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -48,31 +53,39 @@ workflow NFCORE_NFMITNANEXT {
     take:
     samplesheet // channel: samplesheet read in from --input
     ch_fasta
-    
+    ch_contamination_fasta
+    ch_min_mapQ
+    ch_flye_mode
+    ch_ref_gff
 
     main:
 
     // ch_samplesheet = Channel.fromPath(params.input).view(i -> 'out main first $i')
 
 
-    Channel
-    .fromPath(params.input)
-    .splitCsv(header: true)
-    .map { row ->
-        def meta = [
-            id: row.sample,
-            single_end: true
-        ]
-        def fastq = file(row.fastq_1)
-        return [meta, fastq]
-    }
-    .set { ch_samplesheet }    
+    // Channel
+    // .fromPath(samplesheet)
+    // .splitCsv(header: true)
+    // .map { row ->
+    //     def meta = [
+    //         id: row.sample,
+    //         single_end: true
+    //     ]
+    //     def fastq = file(row.fastq_1)
+    //     return [meta, fastq]
+    // }
+    // .set { ch_samplesheet }
     //
     // WORKFLOW: Run pipeline
     //
     NFMITNANEXT (
-        ch_samplesheet,
-        ch_fasta
+    //    ch_samplesheet,
+        samplesheet,
+        ch_fasta,
+        ch_contamination_fasta,
+        ch_min_mapQ,
+        ch_flye_mode,
+        ch_ref_gff
     )
 
     // emit:
@@ -91,7 +104,10 @@ workflow {
     //params.input = "/home/andresfl/NF-MITNANEX/testing_hack/samples.csv"
     //
     ch_fasta = params.fasta
-
+    ch_contamination_fasta = params.contamination_fasta
+    ch_min_mapQ = params.min_mapQ
+    ch_flye_mode = params.flye_mode
+    ch_ref_gff = params.ref_gff
     // SUBWORKFLOW: Run initialisation tasks
     //
     PIPELINE_INITIALISATION (
@@ -108,7 +124,11 @@ workflow {
     //
     NFCORE_NFMITNANEXT (
         PIPELINE_INITIALISATION.out.samplesheet,
-        ch_fasta
+        ch_fasta,
+        ch_contamination_fasta,
+        ch_min_mapQ,
+        ch_flye_mode,
+        ch_ref_gff
     )
     //
     // SUBWORKFLOW: Run completion tasks

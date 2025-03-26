@@ -21,15 +21,13 @@
                     "pattern": "^\\S+\\.csv$",
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/nfmitnanext/usage#samplesheet-input).",
-                    "fa_icon": "fas fa-file-csv",
-                    "default": "/home/juanpi/NF-MITNANEX/data_test/samplesheet.csv"
+                    "fa_icon": "fas fa-file-csv"
                 },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-                    "fa_icon": "fas fa-folder-open",
-                    "default": "/home/juanpi/NF-MITNANEX/results_test"
+                    "fa_icon": "fas fa-folder-open"
                 },
                 "email": {
                     "type": "string",
@@ -37,6 +35,29 @@
                     "fa_icon": "fas fa-envelope",
                     "help_text": "Set this parameter to your e-mail address to get a summary e-mail with details of the run sent to you when the workflow exits. If set in your user config file (`~/.nextflow/config`) then you don't need to specify this on the command line for every run.",
                     "pattern": "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+                },
+                "contamination_fasta": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "description": "Chopper contamination fasta",
+                    "fa_icon": "fas fa-folder-open"
+                },
+                "min_mapQ": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 255,
+                    "description": "minimum map quality to filter for minimap2"
+                },
+                "flye_mode": {
+                    "type": "string",
+                    "description": "flye assembler input data mode"
+                },
+                "ref_gff": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "description": "Reference genome gff annnotation file fir assembly annotation"
                 }
             }
         },
