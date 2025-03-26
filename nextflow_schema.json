@@ -196,7 +196,32 @@
         "fasta": {
             "type": "string",
             "format": "file-path",
-            "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz"
+            "default": "/home/juanpi/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz"
+        },
+        "fai": {
+            "type": "string",
+            "format": "file-path",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.fai"
+        },
+        "cds_bed": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/CDS.bed.gz"
+        },
+        "dloop_bed": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/DLOOP.bed.gz"
+        },
+        "header_dloop": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/header_DLOOP.txt"
+        },
+        "header_cds": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/header_CDS.txt"
+        },
+        "rename_chr": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/rename_chr.txt"
         }
     }
 }
