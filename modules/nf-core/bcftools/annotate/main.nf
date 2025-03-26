@@ -11,6 +11,7 @@ process BCFTOOLS_ANNOTATE {
     tuple val(meta), path(input), path(index), path(annotations), path(annotations_index)
     path(header_lines)
     path(rename_chrs)
+    val(feature)
 
     output:
     tuple val(meta), path("*.{vcf,vcf.gz,bcf,bcf.gz}"), emit: vcf
@@ -33,20 +34,25 @@ process BCFTOOLS_ANNOTATE {
                     args.contains("--output-type v") || args.contains("-Ov") ? "vcf" :
                     "vcf"
     def index_command = !index ? "bcftools index $input" : ''
+    def columns_annotation = "-c CHROM,FROM,TO,${feature}"
 
-    if ("$input" == "${prefix}.${extension}") error "Input and output names are the same, set prefix in module configuration to disambiguate!"
+    if ("$input" == "${prefix}-${feature}.${extension}") error "Input and output names are the same, set prefix in module configuration to disambiguate!"
     """
     $index_command
 
     bcftools \\
         annotate \\
         $args \\
+        --output-type z \\
         $annotations_file \\
+        $columns_annotation  \\
         $rename_chrs_file \\
         $header_file \\
-        --output ${prefix}.${extension} \\
+        --output ${prefix}-${feature}.${extension}.gz \\
         --threads $task.cpus \\
         $input
+
+
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

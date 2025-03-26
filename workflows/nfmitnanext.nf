@@ -14,6 +14,8 @@ include { MINIMAP2_ALIGN } from '../modules/nf-core/minimap2/align/main'
 include { GATK4_MUTECT2 } from '../modules/nf-core/gatk4/mutect2/main'
 include { PICARD_CREATESEQUENCEDICTIONARY } from '../modules/nf-core/picard/createsequencedictionary/main'
 include { GATK4_FILTERMUTECTCALLS } from '../modules/nf-core/gatk4/filtermutectcalls/main'
+include { BCFTOOLS_ANNOTATE } from '../modules/nf-core/bcftools/annotate/main'
+include { BCFTOOLS_ANNOTATE as BCFTOOLS_ANNOTATE_DLOOP } from '../modules/nf-core/bcftools/annotate/main'
 
 
 /*
@@ -89,11 +91,17 @@ workflow NFMITNANEXT {
     )
 
     BCFTOOLS_ANNOTATE(
-        GATK4_FILTERMUTECTCALLS.out.vcf.join(GATK4_FILTERMUTECTCALLS.out.tbi).join(GATK4_FILTERMUTECTCALLS.out.stats),
-        tuple([ id:'test_ref', single_end:true], file(ch_fasta)),
-        tuple([ id:'test_ref', single_end:true], file(params.fai)),
-        PICARD_CREATESEQUENCEDICTIONARY.out.reference_dict,
-        true
+            GATK4_FILTERMUTECTCALLS.out.vcf.map{ meta,vcf -> tuple (meta, vcf, [], params.cds_bed, [])},
+            params.header_cds,
+            params.rename_chr,
+            "CDS"
+    )
+
+    BCFTOOLS_ANNOTATE_DLOOP(
+            BCFTOOLS_ANNOTATE.out.vcf.map{ meta,vcf -> tuple (meta, vcf, [], params.dloop_bed, [])},
+            params.header_dloop,
+            params.rename_chr,
+            "DLOOP"
     )
 
     emit:

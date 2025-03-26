@@ -22,14 +22,14 @@
                     "description": "Path to comma-separated file containing information about the samples in the experiment.",
                     "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row. See [usage docs](https://nf-co.re/nfmitnanext/usage#samplesheet-input).",
                     "fa_icon": "fas fa-file-csv",
-                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/samplesheet.csv"
+                    "default": "/home/juanpi/NF-MITNANEX/data_test/samplesheet.csv"
                 },
                 "outdir": {
                     "type": "string",
                     "format": "directory-path",
                     "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
                     "fa_icon": "fas fa-folder-open",
-                    "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/results_test"
+                    "default": "/home/juanpi/NF-MITNANEX/results_test"
                 },
                 "email": {
                     "type": "string",
@@ -175,12 +175,32 @@
         "fasta": {
             "type": "string",
             "format": "file-path",
-            "default": "/Users/jjpc/Documents/nextflow_hackathon/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz"
+            "default": "/home/juanpi/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz"
         },
         "fai": {
             "type": "string",
             "format": "file-path",
-            "default": "/home/juanpi/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.gz.fai"
+            "default": "/home/juanpi/NF-MITNANEX/data_test/ref_genome_candida_auris.fasta.fai"
+        },
+        "cds_bed": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/CDS.bed.gz"
+        },
+        "dloop_bed": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/DLOOP.bed.gz"
+        },
+        "header_dloop": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/header_DLOOP.txt"
+        },
+        "header_cds": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/header_CDS.txt"
+        },
+        "rename_chr": {
+            "type": "string",
+            "default": "/home/juanpi/NF-MITNANEX/data_test/rename_chr.txt"
         }
     }
 }
